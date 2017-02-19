@@ -1,0 +1,32 @@
+{
+  "name": "gube-roldberg",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Skylocke/gube-roldberg.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Skylocke/gube-roldberg/issues"
+  },
+  "homepage": "https://github.com/Skylocke/gube-roldberg#readme",
+  "dependencies": {
+    "bcrypt": "^1.0.2",
+    "body-parser": "^1.16.1",
+    "dotenv": "^4.0.0",
+    "ejs": "^2.5.6",
+    "express": "^4.14.1",
+    "express-jwt": "^5.1.0",
+    "jsonwebtoken": "^7.3.0",
+    "mongoose": "^4.8.3",
+    "morgan": "^1.8.1",
+    "path": "^0.12.7",
+    "request": "^2.79.0"
+  }
+}
