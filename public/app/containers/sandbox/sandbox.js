@@ -21,18 +21,33 @@ function SandboxCompCtrl($state, $window, DataServices, Auth){
 
   sandboxComp.oneAtATime = true;
 
-  sandboxComp.groups = [
+  sandboxComp.assets = [
     {
-      title: 'Dynamic Group Header - 1',
-      content: 'Dynamic Group Body - 1'
+      name: 'ball',
+      diagram: '',
+      parameters: ['radius']
     },
     {
-      title: 'Dynamic Group Header - 2',
-      content: 'Dynamic Group Body - 2'
-    }
+      name: 'domino',
+      diagram: '',
+      parameters: ['width', 'height']
+    },
+    {
+      name: 'pendulum',
+      diagram: '',
+      parameters: ['arm length', 'radius', 'count', 'offset angle']
+    },
+    {
+      name: 'platform',
+      diagram: '',
+      parameters: ['width', 'height', 'angle']
+    },
+    // {
+    //   name: 'launch ramp',
+    //   diagram: '',
+    //   parameters: ['radius']
+    // }
   ];
-
-  sandboxComp.items = ['Item 1', 'Item 2', 'Item 3'];
 
   sandboxComp.addItem = function() {
     var newItemNo = sandboxComp.items.length + 1;
@@ -49,7 +64,7 @@ function SandboxCompCtrl($state, $window, DataServices, Auth){
 
 
   sandboxComp.$onInit = function() {
-    var sizing = 0.67;
+    var sizing = 0.6;
     var aspectRatio = 9/16;
     var stageW = window.innerWidth * sizing;
     var stageH = window.innerWidth * sizing * aspectRatio;
@@ -102,8 +117,6 @@ function SandboxCompCtrl($state, $window, DataServices, Auth){
         groundH = 20,
         groundX = stageW/2,
         groundY = stageH-(groundH/2);
-    console.log("stageW, stageH:", stageW, stageH)
-    console.log("stageW, stageH:", stageW, stageH)
     var ground = Bodies.rectangle(groundX, groundY, groundW, groundH, { isStatic: true, render: { visible: true } });
     World.add(world, ground);
 

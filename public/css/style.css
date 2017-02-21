@@ -83,12 +83,51 @@ body{
   box-shadow: none;
   -webkit-appearance: none;
   border-bottom: 1px solid #aaa;
-  height: 50px;
+  height: 40px;
   font-size: 30px;
+  margin-bottom: 10px;
+}
+
+.sandbox-row {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  margin: 5px;
+}
+
+.asset-panel {
+  width: 100%;
+  display: flex;
+}
+
+.asset-settings {
+  width: 48%;
+}
+
+.asset-settings input[type="number"] {
+  text-align: right;
+}
+
+.undo-button {
+  width: 100%;
+}
+
+#canvas-stage {
+  display: inline-block;
+}
+
+#tool-box {
+  width: 30%;
+  display: inline-block;
+}
+
+#tool-box ul, ol {
+  padding-left: 2rem;
 }
 
 canvas {
   border: 1px solid #aaa;
+  /*display: inline;*/
 }
 
 canvas:active {

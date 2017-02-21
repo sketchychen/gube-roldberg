@@ -1,40 +1,59 @@
-<form ng-submit="">
-    <div class="form-group">
+<!-- <form ng-submit="" id="sandbox-form">
+    <div class="form-asset">
         <label for=""></label>
         <input type="text" class="form-control" id="sandbox-name" placeholder="" ng-model="sandboxComp.machine.name">
     </div>
-</form>
+</form> -->
 
-<div id="canvas-stage"></div>
-<!-- <assets-comp></assets-comp> -->
-<div id="tool-box">
-  <div class="checkbox">
-      <label>
-        <input type="checkbox" ng-model="sandboxComp.oneAtATime">
-        Open only one at a time
-      </label>
+<div class="sandbox-row">
+  <div id="canvas-stage">
+    <form ng-submit="" id="sandbox-form">
+        <div class="form-asset">
+            <label for=""></label>
+            <input type="text" class="form-control" id="sandbox-name" placeholder="" ng-model="sandboxComp.machine.name">
+        </div>
+    </form>
   </div>
-  <uib-accordion close-others="sandboxComp.oneAtATime">
-      <div uib-accordion-group class="panel-default" heading="Static Header, initially expanded" is-open="status.isFirstOpen" is-disabled="status.isFirstDisabled">
-          This content is straight in the template.
-      </div>
-      <div uib-accordion-group class="panel-default" heading="{{group.title}}" ng-repeat="group in sandboxComp.groups">
-          {{group.content}}
-      </div>
-      <div uib-accordion-group class="panel-default" heading="Dynamic Body Content">
-          <p>The body of the uib-accordion group grows to fit the contents</p>
-          <button type="button" class="btn btn-default btn-sm" ng-click="sandboxComp.addItem()">Add Item</button>
-          <div ng-repeat="item in sandboxComp.items">{{item}}</div>
-      </div>
-      <div uib-accordion-group class="panel-danger" heading="Delete account">
-          <p>Please, to delete your account, click the button below</p>
-          <button class="btn btn-danger">Delete</button>
-      </div>
-      <div uib-accordion-group class="panel-default" is-open="status.open">
-          <uib-accordion-heading>
-              I can have markup, too! <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
-          </uib-accordion-heading>
-          This is just some content to illustrate fancy headings.
-      </div>
-  </uib-accordion>
+
+  <div id="tool-box">
+    <!-- <div class="checkbox">
+        <label>
+          <input type="checkbox" ng-model="sandboxComp.oneAtATime">
+          Open only one at a time
+        </label>
+    </div> -->
+    <p>
+      <ol>
+        <li>select an asset (e.g. ball, platform)</li>
+        <li>tweak its settings (e.g. radius, height)</li>
+        <li>mouse over the sandbox to preview</li>
+        <li>click to place an instance of the asset</li>
+      </ol>
+      <!-- 1) select an asset, 2) tweak its settings,<br />
+      3) mouse over the stage, and <br /> 4) click to place an instance of the asset -->
+    </p>
+    <uib-accordion close-others="sandboxComp.oneAtATime">
+        <div uib-accordion-group class="panel-default" is-open="status.open" ng-repeat="asset in sandboxComp.assets">
+            <uib-accordion-heading>
+                {{asset.name}} <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
+            </uib-accordion-heading>
+            <div class="asset-panel">
+              <div class="asset-diagram"></div>
+              <div class="asset-settings">
+                <div class="input-group" ng-repeat="param in asset.parameters">
+                  <span class="input-group-addon">{{param}}</span>
+                  <input type="number" class="form-control" placeholder="">
+                </div>
+              </div>
+
+            </div>
+            <button class="btn btn-warning undo-button">undo last {{asset.name}}</button>
+        </div>
+        <div uib-accordion-group class="panel-danger" heading="delete machine">
+            <p>to delete this machine, click the button below</p>
+            <button class="btn btn-danger">delete</button>
+        </div>
+    </uib-accordion>
+  </div>
+
 </div>
