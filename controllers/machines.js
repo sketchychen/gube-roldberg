@@ -53,6 +53,17 @@ router.route('/:machine_id')
       machine.save();
     }
   });
+})
+.delete(function(req, res) {
+  models.Machine.remove({_id: req.params.machine_id}, function(err, result) {
+    if(!result){
+      res.send({msg: "no machine found"});
+    } else if (err) {
+      return res.status(500).send({err: 'error: could not delete machine'});
+    } else {
+      console.log(result);
+    }
+  });
 });
 
 

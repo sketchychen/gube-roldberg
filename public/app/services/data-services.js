@@ -84,7 +84,7 @@ function DataServices($http, $window, $location) {
     var req = {
       url: '/api/machines/' + machineID,
       method: 'PUT',
-      data: { machineData: machineData }
+      data: machineData
     }
 
     return $http(req).then(function success(res) {
@@ -92,6 +92,20 @@ function DataServices($http, $window, $location) {
     }, function failure(res) {
       $window.alerts.push({msg: 'updateMachine could not put data', type: 'danger'});
       $location.path('/profile');
+    });
+  }
+
+  this.deleteMachine = function(machineID) {
+    var req = {
+      url: '/api/machines/' + machineID,
+      method: 'DELETE'
+    }
+
+    return $http(req).then(function success(res) {
+      return res;
+    }, function failure(res) {
+      $window.alerts.push({msg: 'deleteMachine could not delete data', type: 'danger'});
+      $location.path('/sandbox/' + machineID);
     });
   }
 

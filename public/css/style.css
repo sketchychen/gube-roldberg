@@ -84,8 +84,19 @@ body{
   -webkit-appearance: none;
   border-bottom: 1px solid #aaa;
   height: 40px;
+  width: 80%;
   font-size: 30px;
+}
+
+#sandbox-form {
   margin-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#sandbox-form button {
+  height: 3.5rem;
 }
 
 .sandbox-row {

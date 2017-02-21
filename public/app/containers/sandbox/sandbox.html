@@ -1,42 +1,30 @@
-<!-- <form ng-submit="" id="sandbox-form">
-    <div class="form-asset">
-        <label for=""></label>
-        <input type="text" class="form-control" id="sandbox-name" placeholder="" ng-model="sandboxComp.machine.name">
-    </div>
-</form> -->
-
 <div class="sandbox-row">
-  <div id="canvas-stage">
-    <form ng-submit="" id="sandbox-form">
-        <div class="form-asset">
-            <label for=""></label>
-            <input type="text" class="form-control" id="sandbox-name" placeholder="" ng-model="sandboxComp.machine.name">
-        </div>
+  <div id="stage">
+    <form ng-submit="sandboxComp.rename()" id="sandbox-form">
+      <input type="hidden">
+      <input type="text" maxlength="32" class="form-control" id="sandbox-name" placeholder="" ng-model="sandboxComp.machine.name">
+      <button type="submit" class="btn btn-default">rename</button>
     </form>
+    <div id="canvas-stage">
+    </div>
   </div>
 
   <div id="tool-box">
     <!-- <div class="checkbox">
-        <label>
-          <input type="checkbox" ng-model="sandboxComp.oneAtATime">
-          Open only one at a time
-        </label>
+      <label><input type="checkbox" ng-model="sandboxComp.oneAtATime">Open only one at a time</label>
     </div> -->
-    <p>
-      <ol>
-        <li>select an asset (e.g. ball, platform)</li>
-        <li>tweak its settings (e.g. radius, height)</li>
-        <li>mouse over the sandbox to preview</li>
-        <li>click to place an instance of the asset</li>
-      </ol>
-      <!-- 1) select an asset, 2) tweak its settings,<br />
-      3) mouse over the stage, and <br /> 4) click to place an instance of the asset -->
-    </p>
+    <ol class="instructions">
+      <li>select an asset (e.g. ball, platform)</li>
+      <li>tweak its settings (e.g. radius, height)</li>
+      <li>mouse over the sandbox to preview</li>
+      <li>click to place an instance of the asset</li>
+    </ol>
     <uib-accordion close-others="sandboxComp.oneAtATime">
         <div uib-accordion-group class="panel-default" is-open="status.open" ng-repeat="asset in sandboxComp.assets">
             <uib-accordion-heading>
                 {{asset.name}} <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
             </uib-accordion-heading>
+            <p>{{asset.blurb}}</p>
             <div class="asset-panel">
               <div class="asset-diagram"></div>
               <div class="asset-settings">
@@ -47,13 +35,14 @@
               </div>
 
             </div>
-            <button class="btn btn-warning undo-button">undo last {{asset.name}}</button>
+            <button class="btn btn-warning undo-button">remove last {{asset.name}}</button>
         </div>
         <div uib-accordion-group class="panel-danger" heading="delete machine">
             <p>to delete this machine, click the button below</p>
-            <button class="btn btn-danger">delete</button>
+            <button class="btn btn-danger" ng-click="sandboxComp.delete()">delete</button>
         </div>
     </uib-accordion>
+      <p id="mouse-coordinates"></p>
   </div>
 
 </div>
