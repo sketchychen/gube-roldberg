@@ -1,0 +1,40 @@
+<form ng-submit="">
+    <div class="form-group">
+        <label for=""></label>
+        <input type="text" class="form-control" id="sandbox-name" placeholder="" ng-model="sandboxComp.machine.name">
+    </div>
+</form>
+
+<div id="canvas-stage"></div>
+<!-- <assets-comp></assets-comp> -->
+<div id="tool-box">
+  <div class="checkbox">
+      <label>
+        <input type="checkbox" ng-model="sandboxComp.oneAtATime">
+        Open only one at a time
+      </label>
+  </div>
+  <uib-accordion close-others="sandboxComp.oneAtATime">
+      <div uib-accordion-group class="panel-default" heading="Static Header, initially expanded" is-open="status.isFirstOpen" is-disabled="status.isFirstDisabled">
+          This content is straight in the template.
+      </div>
+      <div uib-accordion-group class="panel-default" heading="{{group.title}}" ng-repeat="group in sandboxComp.groups">
+          {{group.content}}
+      </div>
+      <div uib-accordion-group class="panel-default" heading="Dynamic Body Content">
+          <p>The body of the uib-accordion group grows to fit the contents</p>
+          <button type="button" class="btn btn-default btn-sm" ng-click="sandboxComp.addItem()">Add Item</button>
+          <div ng-repeat="item in sandboxComp.items">{{item}}</div>
+      </div>
+      <div uib-accordion-group class="panel-danger" heading="Delete account">
+          <p>Please, to delete your account, click the button below</p>
+          <button class="btn btn-danger">Delete</button>
+      </div>
+      <div uib-accordion-group class="panel-default" is-open="status.open">
+          <uib-accordion-heading>
+              I can have markup, too! <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
+          </uib-accordion-heading>
+          This is just some content to illustrate fancy headings.
+      </div>
+  </uib-accordion>
+</div>

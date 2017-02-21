@@ -1,0 +1,108 @@
+body{
+  line-height: normal;
+  padding-top: 50px;
+  min-height: 100vh;
+  font-family: 'Ubuntu', sans-serif;
+}
+
+.login-button, .signup-button, .search-button{
+  /*background-color: #C7F464;*/
+  /*border-color: #98C437;*/
+  /*color: white;*/
+}
+
+.login-button:hover, .signup-button:hover, .search-button:hover{
+  /*background-color: #98C437;
+  border-color: #98C437;*/
+  /*color: white;*/
+}
+
+.home-search-container .search-button{
+  height: 50px;
+}
+
+.home-search-container input{
+  height: 50px;
+}
+
+.orange{
+  color: #FF6633;
+}
+
+.teal{
+  color: #009999;
+}
+
+.grey{
+  color: grey;
+}
+
+.grey:hover{
+  color: #009999;
+
+}
+
+.ui-view-div{
+  min-height: calc(100vh - 290px);
+}
+
+.unfocus-body{
+  position: fixed;
+  left: 0;
+  z-index: 100;
+  height: 100vh;
+  width: 100vw;
+  background-color: rgba(150, 150, 150, 0.1);
+}
+
+.auth-container {
+  max-width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.auth-form {
+  width: 30%;
+  margin: 4%;
+}
+
+.auth-divide {
+  height: inherit;
+  border: 1px solid #aaa;
+}
+
+.alert-alert {
+  margin: 0 auto;
+}
+
+#sandbox-name {
+  border-radius: 0;
+  border: none;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+  -webkit-appearance: none;
+  border-bottom: 1px solid #aaa;
+  height: 50px;
+  font-size: 30px;
+}
+
+canvas {
+  border: 1px solid #aaa;
+}
+
+canvas:active {
+  cursor: pointer;
+  cursor: -webkit-grabbing;
+}
+
+@media(max-width: 768px){
+  .ui-view-div{
+    min-height: calc(100vh - 380px);
+  }
+}
+
+@media(max-width: 1300px){
+  .media-heading{
+    font-size: 14px;
+  }

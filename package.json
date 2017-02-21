@@ -1,5 +1,5 @@
 {
-  "name": "gube-roldberg",
+  "name": "picky-eater-hackathon",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -8,24 +8,27 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Skylocke/gube-roldberg.git"
+    "url": "git+https://github.com/Tommy-Lim/picky-eater-hackathon.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/Skylocke/gube-roldberg/issues"
+    "url": "https://github.com/Tommy-Lim/picky-eater-hackathon/issues"
   },
-  "homepage": "https://github.com/Skylocke/gube-roldberg#readme",
+  "homepage": "https://github.com/Tommy-Lim/picky-eater-hackathon#readme",
   "dependencies": {
+    "angular-ui-bootstrap": "^2.5.0",
+    "babel-eslint": "^7.1.1",
     "bcrypt": "^1.0.2",
-    "body-parser": "^1.16.1",
+    "body-parser": "^1.16.0",
+    "csslint": "^1.0.5",
     "dotenv": "^4.0.0",
-    "ejs": "^2.5.6",
-    "express": "^4.14.1",
+    "eslint": "^3.14.1",
+    "express": "^4.14.0",
     "express-jwt": "^5.1.0",
-    "jsonwebtoken": "^7.3.0",
-    "mongoose": "^4.8.3",
-    "morgan": "^1.8.1",
+    "jsonwebtoken": "^7.2.1",
+    "mongoose": "^4.7.9",
+    "morgan": "^1.7.0",
     "path": "^0.12.7",
     "request": "^2.79.0"
   }

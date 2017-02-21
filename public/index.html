@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- <link rel="shortcut icon" href="img/tastesaver_favicon.png" /> -->
+    <title>stuff</title>
+    <base href="/" />
+
+    <!-- Angular Dependencies -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular-resource.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/1.0.0-rc.1/angular-ui-router.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-touch/1.6.1/angular-touch.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.0/angular-animate.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-sanitize/1.6.1/angular-sanitize.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/2.5.0/ui-bootstrap-tpls.js"></script>
+
+    <!-- Angular scripts -->
+    <script src="app/app.js"></script>
+
+    <!-- Angular containers -->
+    <script src="app/containers/home/home.js"></script>
+    <script src="app/containers/auth/auth.js"></script>
+    <script src="app/containers/dashboard/dashboard.js"></script>
+    <script src="app/containers/sandbox/sandbox.js"></script>
+    <script src="app/containers/machine/machine.js"></script>
+    <script src="app/containers/search/search.js"></script>
+
+    <!-- Angular components -->
+    <script src="app/components/navbar/navbar.js"></script>
+    <script src="app/components/footer/footer.js"></script>
+    <script src="app/components/alerts/alerts.js"></script>
+
+    <!-- Angular services -->
+    <script src="app/services/data-services.js"></script>
+    <script src="app/services/auth-services.js"></script>
+    <script src="app/services/AuthInterceptor.js"></script>
+
+    <!-- Physics script -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.10.0/matter.min.js"></script>
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
+
+    <!-- Style Sheets -->
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/home.css" />
+
+  </head>
+  <body ng-app="App">
+    <navbar-comp></navbar-comp>
+
+    <div ui-view class="ui-view-div container"></div>
+
+    <footer-comp></footer-comp>
+
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script src="js/main.js"></script>
+  </body>
+</html>
