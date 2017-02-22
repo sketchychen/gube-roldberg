@@ -5,7 +5,11 @@
       <input type="text" maxlength="32" class="form-control" id="sandbox-name" placeholder="" ng-model="sandboxComp.machine.name">
       <button type="submit" class="btn btn-default">rename</button>
     </form>
+    <div ng-click="sandboxComp.buildMode = !sandboxComp.buildMode">
+      build mode: {{sandboxComp.buildMode}}
+    </div>
     <div id="canvas-stage">
+      <canvas ng-show="sandboxComp.buildMode" ng-mousemove="sandboxComp.drawPreview()" id="preview-canvas"></canvas>
     </div>
   </div>
 
@@ -14,35 +18,34 @@
       <label><input type="checkbox" ng-model="sandboxComp.oneAtATime">Open only one at a time</label>
     </div> -->
     <ol class="instructions">
-      <li>select an asset (e.g. ball, platform)</li>
+      <li>select an asset type (e.g. ball, platform)</li>
       <li>tweak its settings (e.g. radius, height)</li>
-      <li>mouse over the sandbox to preview</li>
-      <li>click to place an instance of the asset</li>
+      <li>mouse over the sandbox to preview its starting point</li>
+      <li>click to add the asset to your machine</li>
     </ol>
     <uib-accordion close-others="sandboxComp.oneAtATime">
-        <div uib-accordion-group class="panel-default" is-open="status.open" ng-repeat="asset in sandboxComp.assets">
+        <div uib-accordion-group class="panel-default" is-open="status.open" ng-repeat="(assetName, asset) in sandboxComp.assets">
             <uib-accordion-heading>
-                {{asset.name}} <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
+                {{assetName}} <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
             </uib-accordion-heading>
             <p>{{asset.blurb}}</p>
             <div class="asset-panel">
               <div class="asset-diagram"></div>
               <div class="asset-settings">
-                <div class="input-group" ng-repeat="param in asset.parameters">
-                  <span class="input-group-addon">{{param}}</span>
-                  <input type="number" class="form-control" placeholder="">
+                <div class="input-group" ng-repeat="(paramName, param) in asset.parameters">
+                  <span class="input-group-addon">{{paramName}}</span>
+                  <input type="number" class="form-control" placeholder="" ng-model="sandboxComp.assets[assetName].parameters[paramName]">
                 </div>
               </div>
 
             </div>
-            <button class="btn btn-warning undo-button">remove last {{asset.name}}</button>
+            <button class="btn btn-warning undo-button">remove last {{name}}</button>
         </div>
         <div uib-accordion-group class="panel-danger" heading="delete machine">
             <p>to delete this machine, click the button below</p>
             <button class="btn btn-danger" ng-click="sandboxComp.delete()">delete</button>
         </div>
     </uib-accordion>
-      <p id="mouse-coordinates"></p>
   </div>
 
 </div>

@@ -124,7 +124,19 @@ body{
 }
 
 #canvas-stage {
-  display: inline-block;
+  /*display: inline-block;*/
+  position: relative;
+}
+
+/*#canvas-stage>canvas {
+
+}*/
+
+#canvas-stage #preview-canvas {
+  z-index: 99;
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 
 #tool-box {
