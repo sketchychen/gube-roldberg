@@ -1,0 +1,36 @@
+<div class="sandbox-row">
+  <div id="stage">
+    <h1 id="machine-name">{{machineComp.machine.name}}</h1>
+    <div id="machine-stage">
+    </div>
+  </div>
+
+  <div id="tool-box">
+    <!-- <div class="checkbox">
+      <label><input type="checkbox" ng-model="sandboxComp.oneAtATime">Open only one at a time</label>
+    </div> -->
+    <uib-accordion close-others="sandboxComp.oneAtATime">
+      <div uib-accordion-group class="panel-default" is-open="status.open" ng-click="">
+        <uib-accordion-heading>
+          username here <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': asset.active, 'glyphicon-chevron-right': !asset.active}"></i>
+        </uib-accordion-heading>
+        <p>something else</p>
+        <div class="asset-panel">
+          <div class="asset-diagram">
+          </div>
+          <div class="asset-settings">
+          </div>
+        </div>
+        <button class="btn btn-warning info" ng-click="">go to profile</button>
+      </div>
+      <button class="btn btn-info tool-box-btn-1 panel-heading" ng-click="machineComp.resetMachine()">
+        <h4 class="panel-title">reset machine</h4>
+      </button>
+      <button class="btn btn-primary tool-box-btn-1 panel-heading" ng-click="">
+        <h4 class="panel-title">copy machine</h4>
+      </button>
+    </uib-accordion>
+
+  </div>
+
+</div>

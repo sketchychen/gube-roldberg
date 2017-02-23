@@ -1,5 +1,22 @@
 <alerts-comp></alerts-comp>
 
+<div class="col-sm-8 gallery-container">
+  <div class="well machine-well" ng-repeat="machine in homeComp.machines track by $index">
+    <div class="thumbnail" id="thumbnail-{{$index}}">
+      <thumbnail-comp machine="{{machine}}" width="{{homeComp.thumbnailW}}" height="{{homeComp.thumbnailH}}"></thumbnail-comp>
+      <!-- <canvas id="canvas-{{$index}}" class="thumbnail-canvas"
+              width="{{homeComp.thumbnailW}}"
+              height="{{homeComp.thumbnailH}}"></canvas> -->
+    </div>
+    <div class="caption">
+      <a ui-sref="machineState({id: machine._id})">
+        <h3>{{machine.name}}</h3>
+        <p>made by {{machine.user.name}}</p>
+      </a>
+    </div>
+  </div>
+</div>
+
 <div class="col-sm-4 home-search-container">
     <form ng-submit="homeComp.search()">
       <div class="input-group">
@@ -11,15 +28,4 @@
         </span>
       </div>
     </form>
-</div>
-
-<div class="col-sm-8 gallery-container">
-  <div class="well machine-well" ng-repeat="machine in homeComp.machines">
-    <div class="thumbnail"></div>
-    <div class="thumbnail-caption">
-      <a ui-sref="machineState({id: machine._id})">
-        <h3>{{machine.name}}</h3>
-      </a>
-    </div>
-  </div>
 </div>

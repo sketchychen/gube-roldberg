@@ -25,10 +25,14 @@ function DashboardCompCtrl($state, $window, DataServices, Auth){
   });
 
   dashboardComp.newMachine = function() {
+    var assetList = {}
+    for (var key in ASSET_LIBRARY) {
+      assetList[key] = [];
+    }
     DataServices.createNewMachine({
       user_id: dashboardComp.user.id,
       name: "untitled",
-      assetList: {}
+      assetList: assetList
     }).then(function(data) {
       console.log(data.data);
       $state.go('sandboxState', {id: data.data._id})

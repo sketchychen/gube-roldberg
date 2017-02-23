@@ -24,6 +24,22 @@ body{
 .home-search-container input{
   height: 50px;
 }
+.machine-well {
+  padding: 0;
+  display: inline-block;
+}
+
+.thumbnail {
+  margin: 0;
+  padding: 5px 5px 0;
+  height: auto;
+}
+.thumbnail>canvas {
+
+}
+.caption {
+  padding: 0 10px;
+}
 
 nav {
   background-color: white;
@@ -109,20 +125,22 @@ nav {
 }
 
 .input-group {
-  margin: 10px auto;
+  margin: 2%;
+  width: 94%;
 }
 
-/*.asset-settings {
-  width: 48%;
-}*/
+.asset-settings {
+  width: 100%;
+}
 
 .asset-labels {
   display: flex;
   justify-content: space-between;
 }
 
-.asset-settings input[type="number"] {
+.asset-settings input[type="range"] {
   text-align: right;
+  width: 100%;
 }
 
 .undo-button {
@@ -157,14 +175,14 @@ nav {
 
 .tool-box-btn-1 {
   width: 100%;
-  margin: 5px auto;
+  margin-top: 5px;
   text-align: left;
   height: 4rem;
 }
 
-/*#tool-box .panel-danger {
-  margin-top: 50px;
-}*/
+#tool-box .panel-danger {
+  margin-top: 5px;
+}
 
 canvas {
   border: 1px solid #aaa;
