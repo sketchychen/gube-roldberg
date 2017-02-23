@@ -86,6 +86,7 @@ function DataServices($http, $window, $location) {
       method: 'PUT',
       data: machineData
     }
+    console.log(req.data)
 
     return $http(req).then(function success(res) {
       return res;

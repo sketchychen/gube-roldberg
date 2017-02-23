@@ -1,38 +1,38 @@
 <nav class="navbar navbar-fixed-top" role="navigation">
-<div class="container">
-  <!-- Brand and toggle get grouped for better mobile display -->
-  <div class="navbar-header">
-    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#nav-collapse-target" ng-click="navbarComp.toggleOverlay()">
-      <span class="sr-only">Toggle navigation</span>
-      <span class="icon-bar"></span>
-      <span class="icon-bar"></span>
-      <span class="icon-bar"></span>
-    </button>
-    <div class="logo-link">
-      <a class="navbar-brand grey" ui-sref="homeState()">gube roldberg</a>
-    </div>
-  </div>
-
-  <!-- Collect the nav links, forms, and other content for toggling -->
-  <div class="collapse navbar-collapse" id="nav-collapse-target">
-    <ul class="nav navbar-nav navbar-right">
-      <!-- <li ui-sref-active="active" data-toggle="collapse" data-target="#nav-collapse-target" ng-click="navbarComp.hideOverlay()"><a class="grey" ui-sref="searchState({query: 'salads'})">Search</a></li> -->
-      <li ui-sref-active="active" data-toggle="collapse" data-target="#nav-collapse-target" ng-click="navbarComp.hideOverlay()"><a class="grey" ng-show="navbarComp.isLoggedIn()" ui-sref="dashboardState()">dashboard</a></li>
-      <li ui-sref-active="active" data-toggle="collapse" data-target="#nav-collapse-target" ng-click="navbarComp.hideOverlay()"><a class="grey" ng-show="navbarComp.isLoggedIn()" ui-sref="authState()" ng-click="navbarComp.logout()">logout</a></li>
-      <li ui-sref-active="active" data-toggle="collapse" data-target="#nav-collapse-target" ng-click="navbarComp.hideOverlay()"><a class="grey" ng-hide="navbarComp.isLoggedIn()" ui-sref="authState()">sign up / log in</a></li>
-    </ul>
-
-    <form class="navbar-form" role="search" ng-submit="navbarComp.search()">
-      <div class="input-group">
-        <input type="text" class="form-control" placeholder="search" ng-model="navbarComp.query" />
-        <span class="input-group-btn">
-          <button type="submit" class="btn btn-default search-button" data-toggle="collapse" data-target="#nav-collapse-target">
-            Search
-          </button>
-        </span>
+  <div class="container">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#nav-collapse-target" ng-click="navbarComp.toggleOverlay()">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <div class="logo-link">
+        <a class="navbar-brand grey" ui-sref="homeState()">gube roldberg</a>
       </div>
-    </form>
-  </div><!-- /.navbar-collapse -->
-  <div class="unfocus-body" data-toggle="collapse" data-target="#nav-collapse-target" ng-click="navbarComp.hideOverlay()" ng-show="navbarComp.showOverlayVar"></div>
-</div><!-- /.container-fluid -->
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="nav-collapse-target">
+      <ul class="nav navbar-nav navbar-right">
+        <!-- <li ui-sref-active="active" data-toggle="collapse" data-target="#nav-collapse-target" ng-click="navbarComp.hideOverlay()"><a class="grey" ui-sref="searchState({query: 'salads'})">Search</a></li> -->
+        <li ui-sref-active="active" data-toggle="collapse" data-target="#nav-collapse-target" ng-click="navbarComp.hideOverlay()"><a class="grey" ng-show="navbarComp.isLoggedIn()" ui-sref="dashboardState()">dashboard</a></li>
+        <li ui-sref-active="active" data-toggle="collapse" data-target="#nav-collapse-target" ng-click="navbarComp.hideOverlay()"><a class="grey" ng-show="navbarComp.isLoggedIn()" ui-sref="authState()" ng-click="navbarComp.logout()">logout</a></li>
+        <li ui-sref-active="active" data-toggle="collapse" data-target="#nav-collapse-target" ng-click="navbarComp.hideOverlay()"><a class="grey" ng-hide="navbarComp.isLoggedIn()" ui-sref="authState()">sign up / log in</a></li>
+      </ul>
+
+      <!-- <form class="navbar-form" role="search" ng-submit="navbarComp.search()">
+        <div class="input-group">
+          <input type="text" class="form-control" placeholder="search" ng-model="navbarComp.query" />
+          <span class="input-group-btn">
+            <button type="submit" class="btn btn-default search-button" data-toggle="collapse" data-target="#nav-collapse-target">
+              Search
+            </button>
+          </span>
+        </div>
+      </form> -->
+    </div><!-- /.navbar-collapse -->
+    <div class="unfocus-body" data-toggle="collapse" data-target="#nav-collapse-target" ng-click="navbarComp.hideOverlay()" ng-show="navbarComp.showOverlayVar"></div>
+  </div><!-- /.container-fluid -->
 </nav>

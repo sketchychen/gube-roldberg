@@ -25,12 +25,9 @@ body{
   height: 50px;
 }
 
-.orange{
-  color: #FF6633;
-}
-
-.teal{
-  color: #009999;
+nav {
+  background-color: white;
+  border-bottom: 1px solid #aaa;
 }
 
 .grey{
@@ -111,8 +108,17 @@ body{
   display: flex;
 }
 
-.asset-settings {
+.input-group {
+  margin: 10px auto;
+}
+
+/*.asset-settings {
   width: 48%;
+}*/
+
+.asset-labels {
+  display: flex;
+  justify-content: space-between;
 }
 
 .asset-settings input[type="number"] {
@@ -121,6 +127,7 @@ body{
 
 .undo-button {
   width: 100%;
+  margin: 10px auto;
 }
 
 #canvas-stage {
@@ -147,6 +154,17 @@ body{
 #tool-box ul, ol {
   padding-left: 2rem;
 }
+
+.tool-box-btn-1 {
+  width: 100%;
+  margin: 5px auto;
+  text-align: left;
+  height: 4rem;
+}
+
+/*#tool-box .panel-danger {
+  margin-top: 50px;
+}*/
 
 canvas {
   border: 1px solid #aaa;

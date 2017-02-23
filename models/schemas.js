@@ -6,7 +6,7 @@ var bcrypt = require('bcrypt');
 var machineSchema = new mongoose.Schema({
   user_id: String,
   name: String,
-  assetList: []
+  assetList: {}
 }, {
   collection: 'Machines'
 });

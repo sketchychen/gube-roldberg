@@ -28,7 +28,7 @@ function DashboardCompCtrl($state, $window, DataServices, Auth){
     DataServices.createNewMachine({
       user_id: dashboardComp.user.id,
       name: "untitled",
-      assetList: []
+      assetList: {}
     }).then(function(data) {
       console.log(data.data);
       $state.go('sandboxState', {id: data.data._id})
