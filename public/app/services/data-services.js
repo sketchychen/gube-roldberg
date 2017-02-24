@@ -93,7 +93,6 @@ function DataServices($http, $window, $location) {
       return res;
     }, function failure(res) {
       $window.alerts.push({msg: 'updateMachine could not put data', type: 'danger'});
-      $location.path('/dashboard');
     });
   }
 
