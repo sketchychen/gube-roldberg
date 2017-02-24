@@ -212,6 +212,13 @@ nav {
   display: inline-block;
 }
 
+#machine-box {
+  width: 30%;
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+}
+
 #tool-box ul, ol {
   padding-left: 2rem;
 }
