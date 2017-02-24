@@ -7,8 +7,41 @@ angular.module('App')
 
 function MachineCompCtrl($state, $window, DataServices, Auth) {
   var machineComp = this;
+  /* -------------------------- SET CANVAS SIZE --------------------------- */
+  var sizing = 0.6;
+  var aspectRatio = 9 / 16;
+  var stageW = window.innerWidth * sizing;
+  var stageH = window.innerWidth * sizing;
+
+  var Engine = Matter.Engine,
+    Render = Matter.Render,
+    World = Matter.World,
+    Body = Matter.Body,
+    Composites = Matter.Composites,
+    Bodies = Matter.Bodies,
+    Constraint = Matter.Constraint,
+    Mouse = Matter.Mouse,
+    MouseConstraint = Matter.MouseConstraint;
+
+  // create engine
+  var engine = Engine.create(),
+    world = engine.world;
+
+  // create renderer
+  var render = Render.create({
+    element: document.getElementById("canvas-stage"),
+    engine: engine,
+    options: {
+      width: stageW,
+      height: stageH,
+      showAngleIndicator: true,
+      showVelocity: false,
+      wireframes: false
+    }
+  });
+
   machineComp.$onInit = function() {
-  /* ---------------------- GRAB USER AND MACHINE DATA ---------------------- */
+    /* ---------------------- GRAB USER AND MACHINE DATA ---------------------- */
     machineComp.user = Auth.currentUser();
     machineComp.userMatch = false;
 
@@ -25,41 +58,22 @@ function MachineCompCtrl($state, $window, DataServices, Auth) {
       })
 
 
-    /* -------------------------- TOOLBOX INTERFACE ------------------------- */
+      /* -------------------------- TOOLBOX INTERFACE ------------------------- */
       machineComp.status = {
         isCustomHeaderOpen: false,
         isFirstOpen: true,
         isFirstDisabled: false
       };
 
-    /* --------------------- PUT AND DELETE TO BACK-END --------------------- */
-      machineComp.copy = function() {
-        DataServices.updateMachine($state.params.id, machineComp.machine).then(function(data) {
-          console.log(data)
-        });
-      }
+      /* --------------------- PUT AND DELETE TO BACK-END --------------------- */
+      // machineComp.copy = function() {
+      //   DataServices.updateMachine($state.params.id, machineComp.machine).then(function(data) {
+      //     console.log(data)
+      //   });
+      // }
 
-    /* -------------------------- SET CANVAS SIZE --------------------------- */
-      var sizing = 0.6;
-      var aspectRatio = 9 / 16;
-      var stageW = window.innerWidth * sizing;
-      var stageH = window.innerWidth * sizing;
 
-    /* ----------------------- MATTER.JS WORLD SET UP ----------------------- */
-      var Engine = Matter.Engine,
-        Render = Matter.Render,
-        World = Matter.World,
-        Body = Matter.Body,
-        Composites = Matter.Composites,
-        Bodies = Matter.Bodies,
-        Constraint = Matter.Constraint,
-        Mouse = Matter.Mouse,
-        MouseConstraint = Matter.MouseConstraint;
-
-      // create engine
-      var engine = Engine.create(),
-        world = engine.world;
-
+      /* ----------------------- MATTER.JS WORLD SET UP ----------------------- */
       // create renderer
       var render = Render.create({
         element: document.getElementById("machine-stage"),
@@ -87,7 +101,7 @@ function MachineCompCtrl($state, $window, DataServices, Auth) {
         });
       World.add(world, mouseConstraint);
 
-    /* ------------------------- MACHINE FUNCTIONS -------------------------- */
+      /* ------------------------- MACHINE FUNCTIONS -------------------------- */
       machineComp.addGround = function() {
         // create static ground
         var groundW = stageW,
@@ -175,7 +189,12 @@ function MachineCompCtrl($state, $window, DataServices, Auth) {
     });
   }
 
-  machineComp.$onDestroy = function() {}
+  machineComp.$onDestroy = function() {
+    World.clear(engine.world, true);
+    Render.stop(render);
+    var element = document.getElementById("machine-stage");
+    element.parentNode.removeChild(element);
+  }
 
 }
 

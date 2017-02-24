@@ -7,6 +7,41 @@ angular.module('App')
 
 function SandboxCompCtrl($state, $window, DataServices, Auth) {
   var sandboxComp = this;
+
+  var sizing = 0.6;
+  // var aspectRatio = 9 / 16;
+  var stageW = window.innerWidth * sizing;
+  var stageH = window.innerWidth * sizing;
+
+  // moved this stuff to outside $onInit scope so I can access it in $onDestroy
+  var Engine = Matter.Engine,
+    Render = Matter.Render,
+    World = Matter.World,
+    Body = Matter.Body,
+    Composites = Matter.Composites,
+    Bodies = Matter.Bodies,
+    Constraint = Matter.Constraint,
+    Mouse = Matter.Mouse,
+    MouseConstraint = Matter.MouseConstraint;
+
+  // create engine
+  var engine = Engine.create(),
+    world = engine.world;
+
+  // create renderer
+  var render = Render.create({
+    element: document.getElementById("canvas-stage"),
+    engine: engine,
+    options: {
+      width: stageW,
+      height: stageH,
+      showAngleIndicator: true,
+      showVelocity: false,
+      wireframes: false
+    }
+  });
+
+
   sandboxComp.$onInit = function() {
   /* ---------------------- GRAB USER AND MACHINE DATA ---------------------- */
     sandboxComp.user = Auth.currentUser();
@@ -61,12 +96,6 @@ function SandboxCompCtrl($state, $window, DataServices, Auth) {
             $state.go('dashboardState');
           });
         }
-
-      /* ------------------------ SET CANVAS SIZE ------------------------- */
-        var sizing = 0.6;
-        // var aspectRatio = 9 / 16;
-        var stageW = window.innerWidth * sizing;
-        var stageH = window.innerWidth * sizing;
 
       /* ------------------------- PREVIEW CANVAS ------------------------- */
         // HIDE PREVIEW CANVAS BY DEFAULT
@@ -135,6 +164,7 @@ function SandboxCompCtrl($state, $window, DataServices, Auth) {
           sandboxComp.staticMode = true;
           sandboxComp.clearSandbox();
           sandboxComp.drawStaticSandbox(staticCanvas, sandboxComp.machine.assetList);
+          setTimeout(function() { Render.stop(render); }, 1000);
         }
 
         sandboxComp.drawStaticSandbox = function(canvas, assetList) {
@@ -169,33 +199,7 @@ function SandboxCompCtrl($state, $window, DataServices, Auth) {
           sandboxComp.staticMode = false;
         }
 
-      /* --------------------- MATTER.JS WORLD SET UP --------------------- */
-        var Engine = Matter.Engine,
-          Render = Matter.Render,
-          World = Matter.World,
-          Body = Matter.Body,
-          Composites = Matter.Composites,
-          Bodies = Matter.Bodies,
-          Constraint = Matter.Constraint,
-          Mouse = Matter.Mouse,
-          MouseConstraint = Matter.MouseConstraint;
-
-        // create engine
-        var engine = Engine.create(),
-          world = engine.world;
-
-        // create renderer
-        var render = Render.create({
-          element: document.getElementById("canvas-stage"),
-          engine: engine,
-          options: {
-            width: stageW,
-            height: stageH,
-            showAngleIndicator: true,
-            showVelocity: false,
-            wireframes: false
-          }
-        });
+      /* --------------------- RENDER MATTER.JS WORLD --------------------- */
         Render.run(render);
 
         // add mouse controls
@@ -289,6 +293,7 @@ function SandboxCompCtrl($state, $window, DataServices, Auth) {
           sandboxComp.populatePlatforms(sandboxComp.machine.assetList.platform);
         }
         sandboxComp.resetSandbox = function() {
+          Render.run(render);
           sandboxComp.clearSandbox();
           sandboxComp.populateSandbox();
         }
@@ -309,6 +314,8 @@ function SandboxCompCtrl($state, $window, DataServices, Auth) {
   }
 
   sandboxComp.$onDestroy = function() {
+    World.clear(engine.world, true);
+    Render.stop(render);
     var element = document.getElementById("canvas-stage");
     element.parentNode.removeChild(element);
     sandboxComp = null;
