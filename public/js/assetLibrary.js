@@ -53,7 +53,7 @@ var ASSET_LIBRARY = {
     active: false
   },
   'platform': {
-    blurb: 'static rectangle, does not move, can be angled to make a ramp',
+    blurb: 'static rectangle, does not move, can be angled to make a ramp. set height much greater than width to make a wall',
     diagram: '',
     parameters: {
       width: { model: 0.25, min: 0.01, max: 0.5, step: 0.01, factor: 100 },

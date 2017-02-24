@@ -193,11 +193,18 @@ nav {
 
 }*/
 
-#canvas-stage #preview-canvas {
-  z-index: 99;
+#canvas-stage .canvas-layer {
   position: absolute;
   top: 0;
   left: 0;
+}
+
+#canvas-stage #preview-canvas {
+  z-index: 99;
+}
+
+#canvas-stage #static-canvas {
+  z-index: 98;
 }
 
 #tool-box {

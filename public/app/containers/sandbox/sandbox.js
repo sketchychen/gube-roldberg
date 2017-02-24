@@ -20,6 +20,7 @@ function SandboxCompCtrl($state, $window, DataServices, Auth) {
 
       /* ------------------------ TOOLBOX INTERFACE ----------------------- */
         sandboxComp.previewMode = false;
+        sandboxComp.staticMode = false;
         sandboxComp.oneAtATime = true;
 
         // move asset options to database or "global"
@@ -27,8 +28,7 @@ function SandboxCompCtrl($state, $window, DataServices, Auth) {
 
         var selectedAsset = {
           name: "",
-          data: {
-          }
+          data: {}
         };
 
         sandboxComp.buildMode = function(asset) {
@@ -76,8 +76,8 @@ function SandboxCompCtrl($state, $window, DataServices, Auth) {
           return {
             x: event.clientX - rect.left,
             y: event.clientY - rect.top,
-            relX: (event.clientX - rect.left)/canvas.width,
-            relY: (event.clientY - rect.top)/canvas.height
+            relX: (event.clientX - rect.left) / canvas.width,
+            relY: (event.clientY - rect.top) / canvas.height
           };
         }
 
@@ -95,12 +95,13 @@ function SandboxCompCtrl($state, $window, DataServices, Auth) {
             if (skipFactoring.indexOf(key) > -1) {
               params[key] = selectedAsset.data[key];
             } else {
-              params[key] = selectedAsset.data[key]*stageW;
+              params[key] = selectedAsset.data[key] * stageW;
             }
           }
           sandboxComp.assetLibrary[selectedAsset.name].drawPreview(ctx,
             mousePos.x, mousePos.y, params);
         }
+
         sandboxComp.getRelativeXY = function() {
           var mousePos = getMousePos(previewCanvas, event);
           selectedAsset.data.x = mousePos.relX;
@@ -118,10 +119,55 @@ function SandboxCompCtrl($state, $window, DataServices, Auth) {
             sandboxComp.machine.assetList[selectedAsset.name] = [assetData];
           }
           console.log(sandboxComp.machine.assetList[selectedAsset.name])
-          sandboxComp.resetSandbox();
+          if (sandboxComp.staticMode === true) {
+            sandboxComp.drawStaticSandbox(staticCanvas, sandboxComp.machine.assetList);
+          } else {
+            sandboxComp.resetSandbox();
+          }
         }
 
+      /* --------------------------- STATIC CANVAS --------------------------- */
+        var staticCanvas = document.getElementById("static-canvas");
+        staticCanvas.width = stageW;
+        staticCanvas.height = stageH;
 
+        sandboxComp.staticSandbox = function() {
+          sandboxComp.staticMode = true;
+          sandboxComp.clearSandbox();
+          sandboxComp.drawStaticSandbox(staticCanvas, sandboxComp.machine.assetList);
+        }
+
+        sandboxComp.drawStaticSandbox = function(canvas, assetList) {
+          console.log(canvas)
+          var ctx = canvas.getContext("2d");
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+          for (var type in assetList) { // for each type of asset
+            assetList[type].forEach(function(data) { // for each asset of a specified type
+              var asset = {
+                x: data.x * canvas.width,
+                y: data.y * canvas.height,
+                params: {}
+              }
+              var skipFactoring = ['count', 'angle'];
+              for (var key in data) { // filter out x and y from the other params
+                if (key !== 'x' && key !== 'y') {
+                  if (skipFactoring.indexOf(key) > -1) {
+                    asset.params[key] = data[key];
+                  } else {
+                    asset.params[key] = data[key] * canvas.width;
+                  }
+                }
+              }
+              // draw each asset using its type's ASSET_LIBRARY's drawPreview function
+              sandboxComp.assetLibrary[type].drawPreview(ctx, asset.x, asset.y, asset.params);
+            });
+          }
+        }
+
+        sandboxComp.turnOffStatic = function() {
+          sandboxComp.staticMode = false;
+        }
 
       /* --------------------- MATTER.JS WORLD SET UP --------------------- */
         var Engine = Matter.Engine,
@@ -181,19 +227,21 @@ function SandboxCompCtrl($state, $window, DataServices, Auth) {
           World.add(world, ground);
         }
         sandboxComp.clearSandbox = function() {
-          World.clear(engine.world, false);
-          sandboxComp.addGround();
-        }
-        // ideally matter.js asset creation functions will be in the assetLibrary database too
+            World.clear(engine.world, false);
+            sandboxComp.addGround();
+          }
+          // ideally matter.js asset creation functions will be in the assetLibrary database too
         sandboxComp.populatePlatforms = function(arr) {
           if (arr !== undefined && arr.length > 0) {
             var platforms = []
             arr.forEach(function(platform) {
-              platforms.push(Bodies.rectangle(platform.x*stageW,
-                platform.y*stageH,
-                platform.width*stageW,
-                platform.height*stageW,
-                { isStatic: true, angle: platform.angle*Math.PI/180 }))
+              platforms.push(Bodies.rectangle(platform.x * stageW,
+                platform.y * stageH,
+                platform.width * stageW,
+                platform.height * stageW, {
+                  isStatic: true,
+                  angle: platform.angle * Math.PI / 180
+                }))
             });
             World.add(world, platforms);
           }
@@ -202,11 +250,12 @@ function SandboxCompCtrl($state, $window, DataServices, Auth) {
           if (arr !== undefined && arr.length > 0) {
             var blocks = []
             arr.forEach(function(block) {
-              blocks.push(Bodies.rectangle(block.x*stageW,
-                block.y*stageH,
-                block.width*stageW,
-                block.height*stageW,
-                { isStatic: false }));
+              blocks.push(Bodies.rectangle(block.x * stageW,
+                block.y * stageH,
+                block.width * stageW,
+                block.height * stageW, {
+                  isStatic: false
+                }));
             });
             World.add(world, blocks);
           }
@@ -215,25 +264,25 @@ function SandboxCompCtrl($state, $window, DataServices, Auth) {
           if (arr !== undefined && arr.length > 0) {
             var cradles = [];
             arr.forEach(function(pendulum) {
-              cradle = Composites.newtonsCradle(pendulum.x*stageW,
-                pendulum.y*stageH, pendulum.count, pendulum.radius*stageW, pendulum.length*stageH);
+              cradle = Composites.newtonsCradle(pendulum.x * stageW,
+                pendulum.y * stageH, pendulum.count, pendulum.radius * stageW, pendulum.length * stageH);
               cradles.push(cradle);
             });
             World.add(world, cradles);
           }
         }
         sandboxComp.populateBalls = function(arr) {
-          if (arr !== undefined && arr.length > 0) {
-            var balls = []
-            arr.forEach(function(ball) {
-              balls.push(Bodies.circle(ball.x*stageW, ball.y*stageH, ball.radius*stageW));
-            });
-            World.add(world, balls);
+            if (arr !== undefined && arr.length > 0) {
+              var balls = []
+              arr.forEach(function(ball) {
+                balls.push(Bodies.circle(ball.x * stageW, ball.y * stageH, ball.radius * stageW));
+              });
+              World.add(world, balls);
+            }
           }
-        }
-        // and populateSandbox will simply iterate through each creator
+          // and populateSandbox will simply iterate through each creator
         sandboxComp.populateSandbox = function() {
-          console.log("populating:", sandboxComp.machine.assetList)
+          // console.log("populating:", sandboxComp.machine.assetList)
           sandboxComp.populateBalls(sandboxComp.machine.assetList.ball);
           sandboxComp.populateBlocks(sandboxComp.machine.assetList.block);
           sandboxComp.populatePendulums(sandboxComp.machine.assetList.pendulum);
@@ -245,7 +294,11 @@ function SandboxCompCtrl($state, $window, DataServices, Auth) {
         }
         sandboxComp.removeLastType = function(assetType) {
           sandboxComp.machine.assetList[assetType].pop();
-          sandboxComp.resetSandbox();
+          if (sandboxComp.staticMode === true) {
+            sandboxComp.drawStaticSandbox();
+          } else {
+            sandboxComp.resetSandbox();
+          }
         }
 
         sandboxComp.addGround();
