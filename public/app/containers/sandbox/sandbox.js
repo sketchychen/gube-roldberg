@@ -295,7 +295,7 @@ function SandboxCompCtrl($state, $window, DataServices, Auth) {
         sandboxComp.removeLastType = function(assetType) {
           sandboxComp.machine.assetList[assetType].pop();
           if (sandboxComp.staticMode === true) {
-            sandboxComp.drawStaticSandbox();
+            sandboxComp.drawStaticSandbox(staticCanvas, sandboxComp.machine.assetList);
           } else {
             sandboxComp.resetSandbox();
           }
@@ -308,7 +308,11 @@ function SandboxCompCtrl($state, $window, DataServices, Auth) {
     });
   }
 
-  sandboxComp.$onDestroy = function() {}
+  sandboxComp.$onDestroy = function() {
+    var element = document.getElementById("canvas-stage");
+    element.parentNode.removeChild(element);
+    sandboxComp = null;
+  }
 
 }
 

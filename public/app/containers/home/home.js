@@ -10,10 +10,6 @@ function HomeCompCtrl($interval, $state, DataServices, AuthServices, Auth){
 
   homeComp.query;
 
-  // homeComp.search = function() {
-  //
-  // }
-
   homeComp.$onInit = function() {
     DataServices.getAllMachines().then(function(data) {
       homeComp.machines = data.data;
@@ -28,16 +24,12 @@ function HomeCompCtrl($interval, $state, DataServices, AuthServices, Auth){
 
     });
 
-
-    // DataServices.searchRecipes(homeComp.query).then(function(data){
-    //   homeComp.results = data.data;
-    //   console.log("searchComp.results: ", homeComp.results)
-    //   homeComp.query = "";
-    // })
   }
 
 
-  homeComp.$onDestroy = function() {}
+  homeComp.$onDestroy = function() {
+    homeComp = null;
+  }
 
 }
 
