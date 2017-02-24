@@ -18,7 +18,7 @@ function DashboardCompCtrl($state, $window, DataServices, Auth){
   dashboardComp.toggleUserGallery = false;
   DataServices.getUserMachines(dashboardComp.user.id).then(function(data) {
     dashboardComp.machines = data.data;
-    console.log(dashboardComp.machines)
+    // console.log(dashboardComp.machines)
     if (dashboardComp.machines !== undefined) {
       dashboardComp.toggleUserGallery = true;
     }

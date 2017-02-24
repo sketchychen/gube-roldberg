@@ -21,7 +21,7 @@ router.route('/')
         if(err){
           return res.status(500).send(err);
         } else {
-          console.log(machine);
+          // console.log(machine);
           return res.send(machine);
         }
       });
@@ -37,7 +37,7 @@ router.route('/:machine_id')
     if(!machine){
       res.send({msg: "no machine found"});
     } else {
-      console.log(machine)
+      // console.log(machine)
       res.send(machine);
     }
   });
@@ -47,7 +47,7 @@ router.route('/:machine_id')
     if(!machine){
       res.send({msg: "no machine found"});
     } else {
-      console.log(machine);
+      // console.log(machine);
       machine.name = req.body.name;
       machine.assetList = req.body.assetList;
       machine.save();
@@ -61,7 +61,8 @@ router.route('/:machine_id')
     } else if (err) {
       return res.status(500).send({err: 'error: could not delete machine'});
     } else {
-      console.log(result);
+      // console.log(result);
+      res.send(result)
     }
   });
 });

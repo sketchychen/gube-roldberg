@@ -29,7 +29,7 @@ router.route('/')
 router.route('/:user_id/machines/')
 .get(function(req, res) {
   models.Machine.find({ user_id: req.params.user_id }, function(err, machines) {
-    console.log("machines found:", machines)
+    // console.log("machines found:", machines)
     res.send(machines);
   });
 });
@@ -42,7 +42,7 @@ router.route('/:user_id/')
     if(!user){
       res.send({msg: "no user found"});
     } else {
-      console.log(user)
+      // console.log(user)
       res.send(user);
     }
   });

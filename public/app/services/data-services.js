@@ -14,7 +14,7 @@ function DataServices($http, $window, $location) {
         return res;
       }, function failure(res) {
         $window.alerts.push({msg: 'getUser could not retrieve data', type: 'danger'});
-        $location.path('/profile');
+        $location.path('/dashboard');
       });
 
   }
@@ -31,7 +31,7 @@ function DataServices($http, $window, $location) {
         return res;
       }, function failure(res) {
         $window.alerts.push({msg: 'getUserMachines could not retrieve data', type: 'danger'});
-        $location.path('/profile');
+        $location.path('/dashboard');
       });
   }
 
@@ -61,7 +61,7 @@ function DataServices($http, $window, $location) {
         return res;
       }, function failure(res) {
         $window.alerts.push({msg: 'getMachine could not retrieve data', type: 'danger'});
-        $location.path('/profile');
+        $location.path('/dashboard');
       });
   }
 
@@ -76,7 +76,7 @@ function DataServices($http, $window, $location) {
       return res;
     }, function failure(res) {
       $window.alerts.push({msg: 'machineData could not post data', type: 'danger'});
-      $location.path('/profile');
+      $location.path('/dashboard');
     });
   }
 
@@ -89,10 +89,11 @@ function DataServices($http, $window, $location) {
     console.log(req.data)
 
     return $http(req).then(function success(res) {
+      console.log(res);
       return res;
     }, function failure(res) {
       $window.alerts.push({msg: 'updateMachine could not put data', type: 'danger'});
-      $location.path('/profile');
+      $location.path('/dashboard');
     });
   }
 

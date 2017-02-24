@@ -10,76 +10,84 @@ function MachineCompCtrl($state, $window, DataServices, Auth) {
   machineComp.$onInit = function() {
   /* ---------------------- GRAB USER AND MACHINE DATA ---------------------- */
     machineComp.user = Auth.currentUser();
+    machineComp.userMatch = false;
 
     DataServices.getMachine($state.params.id).then(function(data) {
-        machineComp.machine = data.data;
-        if (machineComp.machine.assetList === undefined) {
-          machineComp.machine.assetList = {};
-        }
+      machineComp.machine = data.data;
+      if (machineComp.machine.assetList === undefined) {
+        machineComp.machine.assetList = {};
+      }
 
-      /* ------------------------ TOOLBOX INTERFACE ----------------------- */
+      DataServices.getUser(machineComp.machine.user_id).then(function(data) {
+        machineComp.machine.user = data.data;
+        machineComp.userMatch = (machineComp.user.id === machineComp.machine.user.id);
+        // console.log(machineComp.userMatch)
+      })
+
+
+    /* -------------------------- TOOLBOX INTERFACE ------------------------- */
       machineComp.status = {
         isCustomHeaderOpen: false,
         isFirstOpen: true,
         isFirstDisabled: false
       };
 
-      /* ------------------- PUT AND DELETE TO BACK-END ------------------- */
-        machineComp.copy = function() {
-          DataServices.updateMachine($state.params.id, machineComp.machine).then(function(data) {
-            console.log(data)
-          });
+    /* --------------------- PUT AND DELETE TO BACK-END --------------------- */
+      machineComp.copy = function() {
+        DataServices.updateMachine($state.params.id, machineComp.machine).then(function(data) {
+          console.log(data)
+        });
+      }
+
+    /* -------------------------- SET CANVAS SIZE --------------------------- */
+      var sizing = 0.6;
+      var aspectRatio = 9 / 16;
+      var stageW = window.innerWidth * sizing;
+      var stageH = window.innerWidth * sizing;
+
+    /* ----------------------- MATTER.JS WORLD SET UP ----------------------- */
+      var Engine = Matter.Engine,
+        Render = Matter.Render,
+        World = Matter.World,
+        Body = Matter.Body,
+        Composites = Matter.Composites,
+        Bodies = Matter.Bodies,
+        Constraint = Matter.Constraint,
+        Mouse = Matter.Mouse,
+        MouseConstraint = Matter.MouseConstraint;
+
+      // create engine
+      var engine = Engine.create(),
+        world = engine.world;
+
+      // create renderer
+      var render = Render.create({
+        element: document.getElementById("machine-stage"),
+        engine: engine,
+        options: {
+          width: stageW,
+          height: stageH,
+          showAngleIndicator: true,
+          showVelocity: false,
+          wireframes: false
         }
+      });
+      Render.run(render);
 
-      /* ------------------------ SET CANVAS SIZE ------------------------- */
-        var sizing = 0.6;
-        var aspectRatio = 9 / 16;
-        var stageW = window.innerWidth * sizing;
-        var stageH = window.innerWidth * sizing;
-
-      /* --------------------- MATTER.JS WORLD SET UP --------------------- */
-        var Engine = Matter.Engine,
-          Render = Matter.Render,
-          World = Matter.World,
-          Body = Matter.Body,
-          Composites = Matter.Composites,
-          Bodies = Matter.Bodies,
-          Constraint = Matter.Constraint,
-          Mouse = Matter.Mouse,
-          MouseConstraint = Matter.MouseConstraint;
-
-        // create engine
-        var engine = Engine.create(),
-          world = engine.world;
-
-        // create renderer
-        var render = Render.create({
-          element: document.getElementById("machine-stage"),
-          engine: engine,
-          options: {
-            width: stageW,
-            height: stageH,
-            showAngleIndicator: true,
-            showVelocity: false,
-            wireframes: false
+      // add mouse controls
+      var mouse = Mouse.create(render.canvas),
+        mouseConstraint = MouseConstraint.create(engine, {
+          mouse: mouse,
+          constraint: {
+            stiffness: 0.2,
+            render: {
+              visible: false
+            }
           }
         });
-        Render.run(render);
+      World.add(world, mouseConstraint);
 
-        // add mouse controls
-        var mouse = Mouse.create(render.canvas),
-          mouseConstraint = MouseConstraint.create(engine, {
-            mouse: mouse,
-            constraint: {
-              stiffness: 0.2,
-              render: {
-                visible: false
-              }
-            }
-          });
-        World.add(world, mouseConstraint);
-
-      /* ----------------------- SANDBOX FUNCTIONS ------------------------ */
+    /* ------------------------- MACHINE FUNCTIONS -------------------------- */
       machineComp.addGround = function() {
         // create static ground
         var groundW = stageW,
@@ -95,19 +103,21 @@ function MachineCompCtrl($state, $window, DataServices, Auth) {
         World.add(world, ground);
       }
       machineComp.clearMachine = function() {
-        World.clear(engine.world, false);
-        machineComp.addGround();
-      }
-      // ideally matter.js asset creation functions will be in the assetLibrary database too
+          World.clear(engine.world, false);
+          machineComp.addGround();
+        }
+        // ideally matter.js asset creation functions will be in the assetLibrary database too
       machineComp.populatePlatforms = function(arr) {
         if (arr !== undefined && arr.length > 0) {
           var platforms = []
           arr.forEach(function(platform) {
-            platforms.push(Bodies.rectangle(platform.x*stageW,
-              platform.y*stageH,
-              platform.width*stageW,
-              platform.height*stageW,
-              { isStatic: true, angle: platform.angle*Math.PI/180 }))
+            platforms.push(Bodies.rectangle(platform.x * stageW,
+              platform.y * stageH,
+              platform.width * stageW,
+              platform.height * stageW, {
+                isStatic: true,
+                angle: platform.angle * Math.PI / 180
+              }))
           });
           World.add(world, platforms);
         }
@@ -116,11 +126,12 @@ function MachineCompCtrl($state, $window, DataServices, Auth) {
         if (arr !== undefined && arr.length > 0) {
           var blocks = []
           arr.forEach(function(block) {
-            blocks.push(Bodies.rectangle(block.x*stageW,
-              block.y*stageH,
-              block.width*stageW,
-              block.height*stageW,
-              { isStatic: false }));
+            blocks.push(Bodies.rectangle(block.x * stageW,
+              block.y * stageH,
+              block.width * stageW,
+              block.height * stageW, {
+                isStatic: false
+              }));
           });
           World.add(world, blocks);
         }
@@ -129,25 +140,24 @@ function MachineCompCtrl($state, $window, DataServices, Auth) {
         if (arr !== undefined && arr.length > 0) {
           var cradles = [];
           arr.forEach(function(pendulum) {
-            cradle = Composites.newtonsCradle(pendulum.x*stageW,
-              pendulum.y*stageH, pendulum.count, pendulum.radius*stageW, pendulum.length*stageH);
+            cradle = Composites.newtonsCradle(pendulum.x * stageW,
+              pendulum.y * stageH, pendulum.count, pendulum.radius * stageW, pendulum.length * stageH);
             cradles.push(cradle);
           });
           World.add(world, cradles);
         }
       }
       machineComp.populateBalls = function(arr) {
-        if (arr !== undefined && arr.length > 0) {
-          var balls = []
-          arr.forEach(function(ball) {
-            balls.push(Bodies.circle(ball.x*stageW, ball.y*stageH, ball.radius*stageW));
-          });
-          World.add(world, balls);
+          if (arr !== undefined && arr.length > 0) {
+            var balls = []
+            arr.forEach(function(ball) {
+              balls.push(Bodies.circle(ball.x * stageW, ball.y * stageH, ball.radius * stageW));
+            });
+            World.add(world, balls);
+          }
         }
-      }
-      // and populateMachine will simply iterate through each creator
+        // and populateMachine will simply iterate through each creator
       machineComp.populateMachine = function() {
-        console.log("populating:", machineComp.machine.assetList)
         machineComp.populateBalls(machineComp.machine.assetList.ball);
         machineComp.populateBlocks(machineComp.machine.assetList.block);
         machineComp.populatePendulums(machineComp.machine.assetList.pendulum);
@@ -158,9 +168,9 @@ function MachineCompCtrl($state, $window, DataServices, Auth) {
         machineComp.populateMachine();
       }
 
-        machineComp.addGround();
-        machineComp.populateMachine();
-        Engine.run(engine);
+      machineComp.addGround();
+      machineComp.populateMachine();
+      Engine.run(engine);
 
     });
   }

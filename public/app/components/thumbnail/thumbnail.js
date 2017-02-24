@@ -23,14 +23,8 @@ function ThumbnailCompCtrl() {
   var thumbnailComp = this;
 
   thumbnailComp.$onInit = function() {
-    /* ------------------------ SET CANVAS SIZE ------------------------- */
-    // var sizing = 0.264;
-    // var aspectRatio = 9 / 16;
-    // var canvas.width = window.innerWidth * sizing;
-    // var canvas.height = window.innerWidth * sizing;
-
-    // console.log(canvas.width, canvas.height)
-    // console.log(thumbnailComp.machine._id)
+  /* --------------------------- SET UP CANVAS ---------------------------- */
+    console.log(thumbnailComp.machine._id)
     var canvas = $("#thumbnail-" + thumbnailComp.machine._id + " canvas:first-child")[0];
     // canvas.width = canvas.width;
     canvas.height = canvas.width;

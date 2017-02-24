@@ -8,16 +8,16 @@ angular.module('App')
 function HomeCompCtrl($interval, $state, DataServices, AuthServices, Auth){
   var homeComp = this;
 
-  homeComp.query = "";
+  homeComp.query;
 
-  homeComp.search = function() {
-    $state.go('searchState', {query: homeComp.query})
-  }
+  // homeComp.search = function() {
+  //
+  // }
 
   homeComp.$onInit = function() {
     DataServices.getAllMachines().then(function(data) {
       homeComp.machines = data.data;
-      console.log("machines", homeComp.machines)
+      // console.log("machines", homeComp.machines)
 
       homeComp.machines.forEach(function(machine, index) {
         DataServices.getUser(machine.user_id).then(function(data) {

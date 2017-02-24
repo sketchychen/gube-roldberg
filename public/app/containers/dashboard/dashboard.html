@@ -7,7 +7,7 @@
   <p ng-hide="dashboardComp.toggleUserGallery">whoops, looks like you haven't made any yet.</p>
   <div ng-if="dashboardComp.toggleUserGallery">
 
-      <div class="well machine-well" ng-repeat="machine in dashboardComp.machines track by $index">
+      <div class="col-sm-3 machine-well" ng-repeat="machine in dashboardComp.machines track by $index">
         <div class="thumbnail" id="thumbnail-{{machine._id}}">
           <thumbnail-comp machine="machine"></thumbnail-comp>
         </div>

@@ -57,6 +57,7 @@ function SandboxCompCtrl($state, $window, DataServices, Auth) {
         }
         sandboxComp.delete = function() {
           DataServices.deleteMachine($state.params.id).then(function(data) {
+            console.log(data)
             $state.go('dashboardState');
           });
         }

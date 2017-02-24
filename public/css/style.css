@@ -1,28 +1,55 @@
-body {
+  body {
   line-height: normal;
   padding-top: 50px;
   min-height: 100vh;
   font-family: 'Ubuntu', sans-serif;
 }
 
-.login-button, .signup-button, .search-button{
-  /*background-color: #C7F464;*/
-  /*border-color: #98C437;*/
-  /*color: white;*/
+.search-form {
+  width: 100%;
 }
 
-.login-button:hover, .signup-button:hover, .search-button:hover{
-  /*background-color: #98C437;
-  border-color: #98C437;*/
-  /*color: white;*/
+.search {
+  position: relative;
+  color: #aaa;
+  font-size: 16px;
 }
 
-.home-search-container .search-button{
-  height: 50px;
+.search input {
+  width: 100%;
+  height: 32px;
+  border: none;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+  -webkit-appearance: none;
+  border-bottom: 1px solid #aaa;
 }
 
-.home-search-container input{
-  height: 50px;
+input:focus {
+  outline: none;
+}
+
+.search .search-button {
+  position: absolute;
+  height: 31px;
+  top: 0;
+  right: 0;
+  border: none;
+  background: none;
+}
+
+.search .search-button:active {
+  padding-top: 5px;
+  padding-right: 8px;
+}
+
+.search-button:focus {
+  outline: none;
+}
+
+.homepanel-news {
+  margin: 20px 0;
 }
 
 .gallery-container {
@@ -32,22 +59,14 @@ body {
 }
 
 .machine-well {
-  padding: 0;
-  display: inline-block;
-  margin: 10px;
-}
-
-.machine-well canvas {
-
+  padding: 2px 0;
 }
 
 .thumbnail {
   margin: 0;
-  padding: 5px 5px 0;
-  height: auto;
-  border-bottom-left-radius: 0;
-  border-bottom-right-radius: 0;
+  border-radius: 0;
 }
+
 .thumbnail-canvas {
   border: none;
   width: 100%;
@@ -62,20 +81,20 @@ nav {
   border-bottom: 1px solid #aaa;
 }
 
-.grey{
+.grey {
   color: grey;
 }
 
-.grey:hover{
+.grey:hover {
   color: #009999;
-
 }
 
-.ui-view-div{
+.ui-view-div {
   min-height: calc(100vh - 290px);
+  margin: 10px 0;
 }
 
-.unfocus-body{
+.unfocus-body {
   position: fixed;
   left: 0;
   z-index: 100;
@@ -169,6 +188,7 @@ nav {
   position: relative;
 }
 
+
 /*#canvas-stage>canvas {
 
 }*/
@@ -210,13 +230,13 @@ canvas:active {
   cursor: -webkit-grabbing;
 }
 
-@media(max-width: 768px){
-  .ui-view-div{
+@media(max-width: 768px) {
+  .ui-view-div {
     min-height: calc(100vh - 380px);
   }
 }
 
-@media(max-width: 1300px){
-  .media-heading{
+@media(max-width: 1300px) {
+  .media-heading {
     font-size: 14px;
   }
