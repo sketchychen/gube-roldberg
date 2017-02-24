@@ -24,16 +24,17 @@ function ThumbnailCompCtrl() {
 
   thumbnailComp.$onInit = function() {
     /* ------------------------ SET CANVAS SIZE ------------------------- */
-    var sizing = 0.25;
+    // var sizing = 0.264;
     // var aspectRatio = 9 / 16;
-    var thumbnailW = window.innerWidth * sizing;
-    var thumbnailH = window.innerWidth * sizing;
+    // var canvas.width = window.innerWidth * sizing;
+    // var canvas.height = window.innerWidth * sizing;
 
-    // console.log(thumbnailW, thumbnailH)
+    // console.log(canvas.width, canvas.height)
     // console.log(thumbnailComp.machine._id)
     var canvas = $("#thumbnail-" + thumbnailComp.machine._id + " canvas:first-child")[0];
-    canvas.width = thumbnailW;
-    canvas.height = thumbnailH;
+    // canvas.width = canvas.width;
+    canvas.height = canvas.width;
+    // console.log(canvas.width, canvas.height)
 
     thumbnailComp.assetLibrary = ASSET_LIBRARY;
     // console.log(thumbnailComp.assetLibrary)
@@ -43,13 +44,11 @@ function ThumbnailCompCtrl() {
     thumbnailComp.drawThumbnail = function(canvas, assetList) {
       var ctx = canvas.getContext("2d");
 
-      
-
       for (var type in assetList) { // for each type of asset
         assetList[type].forEach(function(data) { // for each asset of a specified type
           var asset = {
-            x: data.x*thumbnailW,
-            y: data.y*thumbnailH,
+            x: data.x*canvas.width,
+            y: data.y*canvas.height,
             params: {}
           }
           var skipFactoring = ['count', 'angle'];
@@ -58,7 +57,7 @@ function ThumbnailCompCtrl() {
               if (skipFactoring.indexOf(key) > -1) {
                 asset.params[key] = data[key];
               } else {
-                asset.params[key] = data[key]*thumbnailW;
+                asset.params[key] = data[key]*canvas.width;
               }
             }
           }

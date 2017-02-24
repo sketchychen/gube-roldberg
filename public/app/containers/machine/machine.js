@@ -80,83 +80,83 @@ function MachineCompCtrl($state, $window, DataServices, Auth) {
         World.add(world, mouseConstraint);
 
       /* ----------------------- SANDBOX FUNCTIONS ------------------------ */
-        machineComp.addGround = function() {
-          // create static ground
-          var groundW = stageW,
-            groundH = 20,
-            groundX = stageW / 2,
-            groundY = stageH - (groundH / 2);
-          var ground = Bodies.rectangle(groundX, groundY, groundW, groundH, {
-            isStatic: true,
-            render: {
-              visible: true
-            }
+      machineComp.addGround = function() {
+        // create static ground
+        var groundW = stageW,
+          groundH = 20,
+          groundX = stageW / 2,
+          groundY = stageH - (groundH / 2);
+        var ground = Bodies.rectangle(groundX, groundY, groundW, groundH, {
+          isStatic: true,
+          render: {
+            visible: true
+          }
+        });
+        World.add(world, ground);
+      }
+      machineComp.clearMachine = function() {
+        World.clear(engine.world, false);
+        machineComp.addGround();
+      }
+      // ideally matter.js asset creation functions will be in the assetLibrary database too
+      machineComp.populatePlatforms = function(arr) {
+        if (arr !== undefined && arr.length > 0) {
+          var platforms = []
+          arr.forEach(function(platform) {
+            platforms.push(Bodies.rectangle(platform.x*stageW,
+              platform.y*stageH,
+              platform.width*stageW,
+              platform.height*stageW,
+              { isStatic: true, angle: platform.angle*Math.PI/180 }))
           });
-          World.add(world, ground);
+          World.add(world, platforms);
         }
-
-        // ideally matter.js asset creation functions will be in the assetLibrary database too
-        machineComp.populatePlatforms = function(list) {
-          if (list.length > 0) {
-            var platforms = []
-            list.forEach(function(platform) {
-              platforms.push(Bodies.rectangle(platform.x*stageW,
-                platform.y*stageH,
-                platform.width*stageW,
-                platform.height*stageW,
-                { isStatic: true, angle: platform.angle*Math.PI/180 }))
-            });
-            World.add(world, platforms);
-          }
+      }
+      machineComp.populateBlocks = function(arr) {
+        if (arr !== undefined && arr.length > 0) {
+          var blocks = []
+          arr.forEach(function(block) {
+            blocks.push(Bodies.rectangle(block.x*stageW,
+              block.y*stageH,
+              block.width*stageW,
+              block.height*stageW,
+              { isStatic: false }));
+          });
+          World.add(world, blocks);
         }
-        machineComp.populateBlocks = function(list) {
-          if (list.length > 0) {
-            var blocks = []
-            list.forEach(function(block) {
-              blocks.push(Bodies.rectangle(block.x*stageW,
-                block.y*stageH,
-                block.width*stageW,
-                block.height*stageW,
-                { isStatic: false }));
-            });
-            World.add(world, blocks);
-          }
+      }
+      machineComp.populatePendulums = function(arr) {
+        if (arr !== undefined && arr.length > 0) {
+          var cradles = [];
+          arr.forEach(function(pendulum) {
+            cradle = Composites.newtonsCradle(pendulum.x*stageW,
+              pendulum.y*stageH, pendulum.count, pendulum.radius*stageW, pendulum.length*stageH);
+            cradles.push(cradle);
+          });
+          World.add(world, cradles);
         }
-        machineComp.populatePendulums = function(list) {
-          if (list.length > 0) {
-            var cradles = [];
-            list.forEach(function(pendulum) {
-              cradle = Composites.newtonsCradle(pendulum.x*stageW,
-                pendulum.y*stageH, pendulum.count, pendulum.radius*stageW, pendulum.length*stageH);
-              cradles.push(cradle);
-            });
-              World.add(world, cradles);
-          }
+      }
+      machineComp.populateBalls = function(arr) {
+        if (arr !== undefined && arr.length > 0) {
+          var balls = []
+          arr.forEach(function(ball) {
+            balls.push(Bodies.circle(ball.x*stageW, ball.y*stageH, ball.radius*stageW));
+          });
+          World.add(world, balls);
         }
-        machineComp.populateBalls = function(list) {
-          if (list.length > 0) {
-            var balls = []
-            list.forEach(function(ball) {
-              balls.push(Bodies.circle(ball.x*stageW, ball.y*stageH, ball.radius*stageW));
-            });
-            World.add(world, balls);
-          }
-        }
-        // and populateMachine will simply iterate through each creator
-        machineComp.populateMachine = function() {
-          machineComp.populateBalls(machineComp.machine.assetList.balls);
-          machineComp.populateBlocks(machineComp.machine.assetList.blocks);
-          machineComp.populatePendulums(machineComp.machine.assetList.pendulums);
-          machineComp.populatePlatforms(machineComp.machine.assetList.platforms);
-        }
-        machineComp.clearMachine = function() {
-          World.clear(engine.world, false);
-          machineComp.addGround();
-        }
-        machineComp.resetMachine = function() {
-          machineComp.clearMachine();
-          machineComp.populateMachine();
-        }
+      }
+      // and populateMachine will simply iterate through each creator
+      machineComp.populateMachine = function() {
+        console.log("populating:", machineComp.machine.assetList)
+        machineComp.populateBalls(machineComp.machine.assetList.ball);
+        machineComp.populateBlocks(machineComp.machine.assetList.block);
+        machineComp.populatePendulums(machineComp.machine.assetList.pendulum);
+        machineComp.populatePlatforms(machineComp.machine.assetList.platform);
+      }
+      machineComp.resetMachine = function() {
+        machineComp.clearMachine();
+        machineComp.populateMachine();
+      }
 
         machineComp.addGround();
         machineComp.populateMachine();

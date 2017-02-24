@@ -1,4 +1,4 @@
-body{
+body {
   line-height: normal;
   padding-top: 50px;
   min-height: 100vh;
@@ -37,6 +37,10 @@ body{
   margin: 10px;
 }
 
+.machine-well canvas {
+
+}
+
 .thumbnail {
   margin: 0;
   padding: 5px 5px 0;
@@ -46,7 +50,9 @@ body{
 }
 .thumbnail-canvas {
   border: none;
+  width: 100%;
 }
+
 .caption {
   padding: 10px;
 }

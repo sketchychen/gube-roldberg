@@ -1,7 +1,7 @@
 <alerts-comp></alerts-comp>
 
-<div class="col-sm-12 gallery-container">
-  <div class="well machine-well" ng-repeat="machine in homeComp.machines track by $index">
+<div class="gallery-container">
+  <div class="well col-sm-4 machine-well" ng-repeat="machine in homeComp.machines track by $index">
     <div class="thumbnail" id="thumbnail-{{machine._id}}">
       <thumbnail-comp machine="machine"></thumbnail-comp>
       <!-- <canvas id="canvas-{{$index}}" class="thumbnail-canvas"
