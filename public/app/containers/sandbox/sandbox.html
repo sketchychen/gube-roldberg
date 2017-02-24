@@ -30,6 +30,7 @@
     <uib-accordion close-others="sandboxComp.oneAtATime">
       <div uib-accordion-group class="panel-default" is-open="asset.active"
           ng-click="sandboxComp.buildMode(assetName)"
+          ng-mouseup="sandboxComp.buildMode(assetName)"
           ng-repeat="(assetName, asset) in sandboxComp.assetLibrary">
         <uib-accordion-heading>
           {{assetName}} <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': asset.active, 'glyphicon-chevron-right': !asset.active}"></i>
