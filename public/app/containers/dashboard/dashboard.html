@@ -6,19 +6,21 @@
   <h2>your machines <button class="btn btn-success" ng-click="dashboardComp.newMachine()">create new machine</button></h2>
   <p ng-hide="dashboardComp.toggleUserGallery">whoops, looks like you haven't made any yet.</p>
   <div ng-if="dashboardComp.toggleUserGallery">
-    <div ng-repeat="machine in dashboardComp.machines">
-      <div class="well machine-well">
-        <div class="thumbnail"></div>
-        <div class="thumbnail-caption">
+
+      <div class="well machine-well" ng-repeat="machine in dashboardComp.machines track by $index">
+        <div class="thumbnail" id="thumbnail-{{machine._id}}">
+          <thumbnail-comp machine="machine"></thumbnail-comp>
+        </div>
+        <div class="caption">
           <a ui-sref="machineState({id: machine._id})">
             <h3>{{machine.name}}</h3>
           </a>
-          <a ui-sref="sandboxState({id: machine._id})">
-            <h3>edit</h3>
-          </a>
+          <button class="btn btn-info" ui-sref="sandboxState({id: machine._id})">
+            edit in sandbox
+          </button>
         </div>
       </div>
-    </div>
+
   </div>
 
 </div>

@@ -24,21 +24,31 @@ body{
 .home-search-container input{
   height: 50px;
 }
+
+.gallery-container {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: flex-start;
+}
+
 .machine-well {
   padding: 0;
   display: inline-block;
+  margin: 10px;
 }
 
 .thumbnail {
   margin: 0;
   padding: 5px 5px 0;
   height: auto;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
 }
-.thumbnail>canvas {
-
+.thumbnail-canvas {
+  border: none;
 }
 .caption {
-  padding: 0 10px;
+  padding: 10px;
 }
 
 nav {

@@ -1,1 +1,4 @@
-<canvas id="thumbnail-canvas" width="thumbnailComp.width" height="thumbnailComp.height"></canvas>
+<!-- <canvas id="thumbnail-{{thumbnailComp.machine._id}}"></canvas> -->
+<!-- <canvas id="my-canvas"></canvas> -->
+
+<canvas ng-attr-id="{{ 'canvas-' + thumbnailComp.machine._id }}" class="thumbnail-canvas"></canvas>

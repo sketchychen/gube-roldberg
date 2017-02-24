@@ -1,9 +1,9 @@
 <alerts-comp></alerts-comp>
 
-<div class="col-sm-8 gallery-container">
+<div class="col-sm-12 gallery-container">
   <div class="well machine-well" ng-repeat="machine in homeComp.machines track by $index">
-    <div class="thumbnail" id="thumbnail-{{$index}}">
-      <thumbnail-comp machine="{{machine}}" width="{{homeComp.thumbnailW}}" height="{{homeComp.thumbnailH}}"></thumbnail-comp>
+    <div class="thumbnail" id="thumbnail-{{machine._id}}">
+      <thumbnail-comp machine="machine"></thumbnail-comp>
       <!-- <canvas id="canvas-{{$index}}" class="thumbnail-canvas"
               width="{{homeComp.thumbnailW}}"
               height="{{homeComp.thumbnailH}}"></canvas> -->
@@ -17,7 +17,7 @@
   </div>
 </div>
 
-<div class="col-sm-4 home-search-container">
+<!-- <div class="col-sm-4 home-search-container">
     <form ng-submit="homeComp.search()">
       <div class="input-group">
         <input type="text" class="form-control" placeholder="search" ng-model="homeComp.query" />
@@ -28,4 +28,4 @@
         </span>
       </div>
     </form>
-</div>
+</div> -->

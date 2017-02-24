@@ -46,6 +46,7 @@ var ASSET_LIBRARY = {
         ctx.moveTo(x + (2 * params.radius * i), y);
         ctx.lineTo(x + (2 * params.radius * i), y + params.length);
         ctx.arc(x + (2 * params.radius * i), y + params.length, params.radius, -Math.PI / 2, 2 * Math.PI);
+        ctx.closePath();
         ctx.stroke();
       }
     },
